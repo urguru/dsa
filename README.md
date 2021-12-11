@@ -1,4 +1,5 @@
 ## Topics Covered
+
 ### 1<sup>st</sup> Dec 2021
 
 1. Print the following patterns
