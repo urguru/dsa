@@ -45,3 +45,8 @@
 8. Find sum of all the digits in a number until the sum becomes a single digit number ***[Loops]***
 9. Difference between a class and object ***[OOPs]***
 10. Usage of static and final keywords ***[OOPs]***
+
+### 13<sup>th</sup> Dec 2021
+
+11. Given total number of stairs and 3 posssible ways to jump the stairs print all possible ways of climbing the stairs ***[Recursion]***
+
