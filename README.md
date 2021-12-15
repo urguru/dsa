@@ -50,3 +50,6 @@
 
 11. Given total number of stairs and 3 posssible ways to jump the stairs print all possible ways of climbing the stairs ***[Recursion]***
 
+### 15<sup>th</sup> Dec 2021
+
+12. Print tower of hanoi ***[Recursion]***
