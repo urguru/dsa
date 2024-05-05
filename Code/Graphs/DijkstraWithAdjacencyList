@@ -1,0 +1,68 @@
+public class DijkstraWithAdjacencyList {
+
+    public int CountOfNodes { get; set; }
+    public Dictionary<int,List<KeyValuePair<int,int>>> Edges { get; set;} 
+    
+    public Graph(int n, int[][] edges) {
+        CountOfNodes = n;
+        Edges = new Dictionary<int,List<KeyValuePair<int,int>>>();
+        for(int i=0;i<edges.Length;++i){
+            if(!Edges.ContainsKey(edges[i][0])){
+                Edges[edges[i][0]] = new List<KeyValuePair<int,int>>();
+            }
+            Edges[edges[i][0]].Add(new KeyValuePair<int,int>(edges[i][1],edges[i][2]));
+        }
+    }
+    
+    public void AddEdge(int[] edge) {
+        if(!Edges.ContainsKey(edge[0]))
+        {
+                Edges[edge[0]] = new List<KeyValuePair<int,int>>();
+        }
+        Edges[edge[0]].Add(new KeyValuePair<int,int>(edge[1],edge[2]));
+    }
+    
+    public int ShortestPath(int node1, int node2) {
+        int[] distanceFromSource = new int[CountOfNodes];
+        for(int i=0;i<CountOfNodes;++i){
+            distanceFromSource[i] =Int32.MaxValue; 
+        }
+        distanceFromSource[node1] = 0;
+        SortedSet<int[]> sortedSet =  new SortedSet<int[]>(new DistanceComparer());
+        sortedSet.Add(new int[] {0, node1});
+        while(sortedSet.Count>0){
+            int[] minDistanceNodeArray = sortedSet.Min;
+            int minDistanceNode = minDistanceNodeArray[1];
+            sortedSet.Remove(minDistanceNodeArray);
+            if(Edges.ContainsKey(minDistanceNode)){
+                List<KeyValuePair<int,int>> adjacentNodes = Edges[minDistanceNode];
+                foreach(KeyValuePair<int,int> node in adjacentNodes){
+                    if(distanceFromSource[node.Key] > distanceFromSource[minDistanceNode]+node.Value){
+                        distanceFromSource[node.Key] = distanceFromSource[minDistanceNode]+node.Value;
+                        sortedSet.Add(new int[]{distanceFromSource[node.Key], node.Key});
+                    }
+                }
+            }
+        }
+        return distanceFromSource[node2]==Int32.MaxValue ? -1 : distanceFromSource[node2];
+    }
+}
+
+public class DistanceComparer : IComparer<int[]>
+  {
+    public int Compare(int[] x, int[] y)
+    {
+      if (x[0] == y[0])
+      {
+        return x[1] - y[1];
+      }
+      return x[0] - y[0];
+    }
+  }
+
+/**
+ * Your Graph object will be instantiated and called as such:
+ * Graph obj = new Graph(n, edges);
+ * obj.AddEdge(edge);
+ * int param_2 = obj.ShortestPath(node1,node2);
+ */
